@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vite + Tailwind Dark/Light Theme</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Override Tailwind's default config to enable class-based dark mode
+      tailwind.config = {
+        darkMode: 'class',
+      };
+    </script>
+
+    <!-- 
+      On page load, check localStorage to set dark/light theme 
+      (this helps avoid or minimize any flicker).
+    -->
+    <script>
+      (function() {
+        const userTheme = localStorage.getItem('theme');
+        if (userTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+
+  <!-- 
+    Using Tailwind to set different backgrounds for light vs dark modes
+    and applying a smooth transition of colors.
+  -->
+  <body 
+    class="
+      bg-[url('./bg.jpg')] bg-no-repeat bg-cover text-gray-900 
+      dark:bg-[url('./bg2.jpg')] dark:text-gray-100 
+      transition-colors duration-300
+    "
+  >
+    <!-- Vite will replace the contents of #app with whatever is in main.js -->
+    <div id="app"></div>
+
+    <!-- Main JS bundle from Vite -->
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
